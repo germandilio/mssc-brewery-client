@@ -1,6 +1,11 @@
 {
   "groups": [
     {
+      "name": "rest.template.config",
+      "type": "guru.springframework.msscbreweryclient.web.config.NioRestTemplateCustomizer",
+      "sourceType": "guru.springframework.msscbreweryclient.web.config.NioRestTemplateCustomizer"
+    },
+    {
       "name": "sfg.brewery",
       "type": "guru.springframework.msscbreweryclient.web.client.BreweryClient",
       "sourceType": "guru.springframework.msscbreweryclient.web.client.BreweryClient"
