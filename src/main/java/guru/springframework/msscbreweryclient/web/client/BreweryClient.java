@@ -1,6 +1,7 @@
 package guru.springframework.msscbreweryclient.web.client;
 
 import guru.springframework.msscbreweryclient.web.model.BeerDto;
+import guru.springframework.msscbreweryclient.web.model.CustomerDto;
 import java.net.URI;
 import java.util.UUID;
 import lombok.Setter;
@@ -15,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class BreweryClient {
   private String beerPathV1;
+  private String customerPathV1;
+
   private String apiHost;
   private final RestTemplate restTemplate;
 
@@ -37,5 +40,21 @@ public class BreweryClient {
 
   public void deleteBear(UUID id) {
     restTemplate.delete(apiHost + beerPathV1 + id);
+  }
+
+  public CustomerDto getCustomerById(UUID customerId) {
+    return restTemplate.getForObject(apiHost+ customerPathV1 + customerId.toString(), CustomerDto.class);
+  }
+
+  public URI saveNewCustomer(CustomerDto customerDto) {
+    return  restTemplate.postForLocation(apiHost + customerPathV1, customerDto);
+  }
+
+  public void updateCustomer(UUID customerId, CustomerDto customerDto) {
+    restTemplate.put(apiHost + customerPathV1 + customerId, customerDto);
+  }
+
+  public void deleteCustomer(UUID customerId) {
+    restTemplate.delete(apiHost + customerPathV1 + customerId);
   }
 }

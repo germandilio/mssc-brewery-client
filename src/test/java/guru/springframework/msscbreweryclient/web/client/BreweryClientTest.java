@@ -3,8 +3,8 @@ package guru.springframework.msscbreweryclient.web.client;
 import static org.junit.jupiter.api.Assertions.*;
 
 import guru.springframework.msscbreweryclient.web.model.BeerDto;
+import guru.springframework.msscbreweryclient.web.model.CustomerDto;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ class BreweryClientTest {
   }
 
   @Test
-  void saveNewBeer() throws URISyntaxException {
+  void saveNewBeer() {
     final BeerDto beerToSave = BeerDto.builder()
         .id(UUID.randomUUID())
         .beerName("New Beer")
@@ -39,6 +39,7 @@ class BreweryClientTest {
 
     URI location = breweryClient.saveNewBeer(beerToSave);
     assertNotNull(location);
+    System.out.println(location);
   }
 
   @Test
@@ -58,5 +59,35 @@ class BreweryClientTest {
     UUID uuid = UUID.randomUUID();
 
     assertDoesNotThrow(() -> breweryClient.deleteBear(uuid));
+  }
+
+  @Test
+  void getCustomerById() {
+    CustomerDto dto = breweryClient.getCustomerById(UUID.randomUUID());
+
+    assertNotNull(dto);
+
+  }
+
+  @Test
+  void testSaveNewCustomer() {
+    CustomerDto customerDto = CustomerDto.builder().name("Joe").build();
+
+    URI uri = breweryClient.saveNewCustomer(customerDto);
+
+    assertNotNull(uri);
+    System.out.println(uri);
+  }
+
+  @Test
+  void testUpdateCustomer() {
+    CustomerDto customerDto = CustomerDto.builder().name("Jim").build();
+
+    assertDoesNotThrow(() -> breweryClient.updateCustomer(UUID.randomUUID(), customerDto));
+  }
+
+  @Test
+  void testDeleteCustomer() {
+    assertDoesNotThrow(() -> breweryClient.deleteCustomer(UUID.randomUUID()));
   }
 }
